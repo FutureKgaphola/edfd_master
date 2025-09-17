@@ -13,20 +13,20 @@ export default function Applications({ id }: any) {
     const { data, error, isLoading } = useApplications(id ?? '');
     const [openModal, setOpenModal] = useState(false);
     const [open_manager_Modal, setOpen_manager_Modal] = useState(false);
-    const [ManagerObject,setManagerObject]=useState({});
+    const [ManagerObject, setManagerObject] = useState({});
     const [titleMessage, set_titleMessage] = useState({
         tittle: "",
         message: ""
     });
 
-    const HandleShowManagerDetails=async(id:string)=>{
-        const resp=await getManager(id);
+    const HandleShowManagerDetails = async (id: string) => {
+        const resp = await getManager(id);
         //console.log(resp);
         setManagerObject(resp);
         setOpen_manager_Modal(true);
     }
 
-    const router=useRouter();
+    const router = useRouter();
     return (
         <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -105,18 +105,18 @@ export default function Applications({ id }: any) {
                                             {user.status}
                                         </td>
 
-{
-                                                user.outcome== "Rejected" ? (<td className="px-6 py-4 whitespace-nowrap text-sm text-red-600">
-                                            {user.outcome}
-                                        </td>) : <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                             {user.outcome}
-                                        </td>
-                                            }
-                                        
+                                        {
+                                            user.outcome == "Rejected" ? (<td className="px-6 py-4 whitespace-nowrap text-sm text-red-600">
+                                                {user.outcome}
+                                            </td>) : <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {user.outcome}
+                                            </td>
+                                        }
+
 
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {/* {user.managerId} */}
-                                            <Button onClick={()=>{HandleShowManagerDetails(user.managerId)}} size="xs" color="yellow">view</Button>
+                                            <Button onClick={() => { HandleShowManagerDetails(user.managerId) }} size="xs" color="yellow">view</Button>
                                         </td>
 
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -139,8 +139,8 @@ export default function Applications({ id }: any) {
                                             }} size="xs" color="yellow">view</Button>
                                         </td>
 
-                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            <Button onClick={()=>router.push('/audit')} size="xs" color="dark">audit logs</Button>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <Button onClick={() => router.push(`/audit/${user.id}`)} size="xs" color="dark">audit logs</Button>
                                         </td>
 
                                     </tr>
@@ -163,7 +163,7 @@ export default function Applications({ id }: any) {
                     </div>
                 </div>
             </div>
-            <ManagerModal ManagerObject={ManagerObject} open_manager_Modal={open_manager_Modal} setManagerObject={setManagerObject} setOpen_manager_Modal={setOpen_manager_Modal}/>
+            <ManagerModal ManagerObject={ManagerObject} open_manager_Modal={open_manager_Modal} setManagerObject={setManagerObject} setOpen_manager_Modal={setOpen_manager_Modal} />
             <Messages openModal={openModal} setOpenModal={setOpenModal} message={titleMessage.message} title={titleMessage.tittle} />
         </div>
     );
